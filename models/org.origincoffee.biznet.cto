@@ -1,0 +1,44 @@
+// String: a UTF8 encoded String.
+// Double: a double precision 64 bit numeric value.
+// Integer: a 32 bit signed whole number.
+// Long: a 64 bit signed whole number.
+// DateTime: an ISO-8601 compatible time instance, with optional time zone and UTZ offset.
+// Boolean: a Boolean value, either true or false.
+
+namespace org.origincoffee.biznet
+
+enum Country {
+  o COLOMBIA
+  o GUATEMALA
+  o HONDURAS
+  o BRAZIL
+}
+
+abstract participant Owner identified by ownerId {
+  o String ownerId
+}
+
+participant Farmer extends Owner {
+  o String firstName
+  o String lastName
+  o Country country
+  o String region
+}
+
+participant Vendor extends Owner {
+  o String businessName
+}
+
+asset Coffee identified by coffeeId {
+  o String coffeeId
+  o Double pounds
+  o Boolean organic
+  o DateTime harvestedAt
+  o String variety
+  --> Owner owner
+}
+
+transaction Trade {
+  --> Owner newOwner
+  --> Coffee coffee
+}
